@@ -1,0 +1,458 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>MPI Cinta Rasul Kelas 8</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700&family=Amiri:wght@400;700&display=swap">
+<style>
+/* Layout: kolom tunggal 760px, bilah tahap di atas, satu tahap tampil per layar, tombol navigasi di bawah */
+:root{
+  --navy:#14295b; --navy-2:#1d3a7a; --gold:#c8962a; --gold-soft:#f6e9c8;
+  --bg:#f2f4f9; --card:#ffffff; --fg:#17203a; --muted:#56607a; --line:#d5dbea;
+  --ok:#1f7a4d; --ok-bg:#e1f3ea; --bad:#b3342b; --bad-bg:#fbe5e2; --accent-fg:#ffffff;
+  --f-disp:'Fraunces',Georgia,serif; --f-body:'Nunito Sans',system-ui,sans-serif; --f-ar:'Amiri','Traditional Arabic',serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --navy:#9db6ee; --navy-2:#2a4a94; --gold:#e3b347; --gold-soft:#3a3118;
+  --bg:#0c1530; --card:#14214a; --fg:#e8ecf8; --muted:#a3adc9; --line:#2b3a6a;
+  --ok:#6fd1a0; --ok-bg:#12372a; --bad:#ff9c92; --bad-bg:#4a1f1d; --accent-fg:#0c1530; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --navy:#9db6ee; --navy-2:#2a4a94; --gold:#e3b347; --gold-soft:#3a3118;
+  --bg:#0c1530; --card:#14214a; --fg:#e8ecf8; --muted:#a3adc9; --line:#2b3a6a;
+  --ok:#6fd1a0; --ok-bg:#12372a; --bad:#ff9c92; --bad-bg:#4a1f1d; --accent-fg:#0c1530; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.65 var(--f-body);padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:760px;margin-inline:auto}
+header.top{padding-block:28px 16px}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font:700 clamp(1.7rem,5vw,2.4rem)/1.15 var(--f-disp);color:var(--navy);margin:6px 0 8px;text-wrap:balance}
+h2{font:700 1.5rem/1.2 var(--f-disp);color:var(--navy);margin:0 0 6px;text-wrap:balance}
+h3{font:700 1.1rem/1.3 var(--f-disp);color:var(--navy);margin:0 0 6px}
+p{margin:0 0 12px}
+.sub{color:var(--muted);margin:0}
+nav.steps{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto}
+nav.steps button{flex:1 0 auto;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--muted);padding:8px 12px;border-radius:8px;font:600 13px var(--f-body);cursor:pointer;white-space:nowrap}
+nav.steps button[aria-current="true"]{background:var(--navy-2);border-color:var(--navy-2);color:#fff}
+nav.steps button.done::after{content:" ✓";color:var(--gold)}
+nav.steps button[aria-current="true"].done::after{color:#fff}
+section.stage{padding-block:24px 8px}
+section.stage[hidden]{display:none}
+.goal{background:var(--gold-soft);border-left:4px solid var(--gold);padding:10px 14px;border-radius:0 8px 8px 0;margin-block:12px 18px;font-size:14.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+.btn{border:0;border-radius:8px;padding:10px 18px;font:700 15px var(--f-body);cursor:pointer;background:var(--navy-2);color:#fff}
+.btn.gold{background:var(--gold);color:#1a1405}
+.btn.ghost{background:transparent;color:var(--navy);border:1px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:22px;flex-wrap:wrap}
+textarea{width:100%;min-height:76px;border:1px solid var(--line);border-radius:8px;padding:10px;font:15px var(--f-body);background:var(--bg);color:var(--fg);resize:vertical}
+/* apersepsi */
+.pemantik{display:grid;gap:10px}
+.pemantik details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:0}
+.pemantik summary{cursor:pointer;padding:14px 16px;font-weight:700;color:var(--navy);list-style:none;display:flex;gap:10px;align-items:flex-start}
+.pemantik summary::before{content:"?";flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold);color:#1a1405;display:grid;place-items:center;font-weight:700}
+.pemantik details>div{padding:0 16px 16px}
+.pemantik .q{font:600 1.1rem/1.4 var(--f-disp);margin-bottom:10px}
+/* quiz */
+.qcard .qnum{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.qtext{font-weight:700;margin:4px 0 12px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;text-align:left;width:100%;background:var(--bg);border:1px solid var(--line);color:var(--fg);padding:10px 12px;border-radius:8px;font:15px/1.45 var(--f-body);cursor:pointer}
+.opt .k{flex:none;width:24px;height:24px;border-radius:6px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;font-weight:700;font-size:13px}
+.opt:hover:not(:disabled){border-color:var(--gold)}
+.opt.sel{border-color:var(--navy-2);box-shadow:inset 0 0 0 1px var(--navy-2)}
+.opt.right{background:var(--ok-bg);border-color:var(--ok)}
+.opt.wrong{background:var(--bad-bg);border-color:var(--bad)}
+.fb{margin-top:10px;padding:10px 12px;border-radius:8px;font-size:14.5px}
+.fb.ok{background:var(--ok-bg);color:var(--fg)}.fb.no{background:var(--bad-bg);color:var(--fg)}
+.fb.info{background:var(--gold-soft)}
+.progress{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:14px}
+.progress i{display:block;height:100%;background:var(--gold);width:0;transition:width .3s}
+/* materi */
+.topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:14px}
+.topics button{border:1px solid var(--line);background:var(--card);color:var(--fg);padding:10px;border-radius:8px;text-align:left;font:600 14px/1.35 var(--f-body);cursor:pointer;min-width:0}
+.topics button[aria-pressed="true"]{border-color:var(--navy-2);background:var(--navy-2);color:#fff}
+.topics button .t{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+.topics button.seen .t::after{content:" ✓"}
+.dalil{border:1px solid var(--line);border-radius:10px;margin-bottom:10px;background:var(--card)}
+.dalil summary{cursor:pointer;padding:12px 14px;font-weight:700;color:var(--navy)}
+.dalil .in{padding:0 14px 14px}
+.ar{font:400 1.7rem/2.1 var(--f-ar);direction:rtl;text-align:right;color:var(--fg);margin:0 0 6px}
+.lat{font-style:italic;color:var(--muted);font-size:14px}
+.arti{border-top:1px dashed var(--line);margin-top:8px;padding-top:8px}
+.satf{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-block:12px}
+.satf .c{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);min-width:0}
+.satf .w{background:var(--navy-2);color:#fff;padding:10px 8px;text-align:center}
+.satf .w b{display:block;font:700 1.05rem var(--f-disp)}
+.satf .w span{font-size:12px;line-height:1.3;display:block}
+.satf .m{background:var(--bad-bg);padding:8px;text-align:center;font-size:13px}
+.satf .m b{display:block}
+.satf .arrow{text-align:center;color:var(--gold);font-weight:700;padding:2px;background:var(--card)}
+@media (max-width:560px){.satf{grid-template-columns:repeat(2,1fr)}}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-block:12px}
+.tri div{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--card);min-width:0}
+.tri b{display:block;color:var(--navy);margin-bottom:4px}
+.tri small{display:block;color:var(--muted);line-height:1.4}
+@media (max-width:560px){.tri{grid-template-columns:1fr}}
+.pick{display:flex;flex-wrap:wrap;gap:8px;margin-block:10px}
+.pick button{border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:8px 12px;border-radius:99px;font:600 14px var(--f-body);cursor:pointer}
+.pick button[aria-pressed="true"]{background:var(--gold);color:#1a1405;border-color:var(--gold)}
+.pop{background:var(--gold-soft);border-radius:8px;padding:12px;margin-top:6px;font-size:15px}
+.mark{display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.ingat{background:var(--gold-soft);border:1px solid var(--gold);border-radius:10px;padding:14px;margin-top:6px}
+.ingat ul{margin:6px 0 0;padding-left:20px}
+/* simulasi */
+.sim .scene{font-size:15.5px}
+.sim .tag{display:inline-block;background:var(--navy-2);color:#fff;font-size:12px;font-weight:700;padding:2px 10px;border-radius:99px;margin-bottom:8px}
+/* hasil */
+.score{font:700 2.6rem/1 var(--f-disp);color:var(--navy)}
+.bars{display:grid;gap:12px;margin-block:14px}
+.bar{display:grid;grid-template-columns:96px 1fr 44px;gap:10px;align-items:center;font-size:14px}
+.bar .tr{height:22px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:6px;transition:width .6s}
+.bar .a i{background:var(--muted)}.bar .z i{background:var(--gold)}
+.bar b{font-variant-numeric:tabular-nums;text-align:right}
+.rate{display:grid;gap:12px}
+.rate .row{display:grid;gap:6px}
+.rate .sc{display:flex;gap:6px;flex-wrap:wrap}
+.rate .sc button{width:42px;height:38px;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:8px;font:700 14px var(--f-body);cursor:pointer}
+.rate .sc button[aria-pressed="true"]{background:var(--navy-2);color:#fff;border-color:var(--navy-2)}
+.scale-l{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);max-width:270px}
+.hide{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+<header class="top">
+  <div class="kicker">PAI dan Budi Pekerti · Kelas VIII · Bab 3</div>
+  <h1>Cinta Rasul: Meneladani Akhlak Nabi Muhammad Saw.</h1>
+  <p class="sub">Media Pembelajaran Interaktif untuk murid SMP Negeri 1 Bungku Utara. Kerjakan berurutan, satu tahap demi satu tahap.</p>
+</header>
+<nav class="steps" id="nav" aria-label="Tahap pembelajaran"></nav>
+
+<!-- 1 APERSEPSI -->
+<section class="stage" data-i="0">
+  <h2>Apersepsi</h2>
+  <div class="goal">Buka setiap pertanyaan, lalu tulis dugaanmu. Belum ada jawaban di sini. Jawabannya akan kamu temukan di tahap materi.</div>
+  <div class="pemantik">
+    <details><summary>Siapa orang yang paling kamu percaya?</summary><div>
+      <p class="q">Sebelum menjadi nabi, Muhammad muda sudah digelari "al-Amin". Apa yang membuat orang-orang Makkah begitu percaya kepadanya?</p>
+      <label for="d1" class="sub">Dugaanmu:</label><textarea id="d1" placeholder="Menurutku..."></textarea></div></details>
+    <details><summary>Uang Rp 500 juta tertinggal di kereta</summary><div>
+      <p class="q">Dua petugas kebersihan KRL menemukan uang Rp 500 juta di dalam kereta. Menurutmu, apa yang mereka lakukan? Mengapa?</p>
+      <label for="d2" class="sub">Dugaanmu:</label><textarea id="d2" placeholder="Menurutku..."></textarea></div></details>
+    <details><summary>Pengemis buta yang selalu menghina</summary><div>
+      <p class="q">Setiap hari seorang pengemis buta menghina Nabi, padahal Nabi diam-diam menyuapinya makan. Setelah Nabi wafat, siapa yang melanjutkan kebiasaan itu, dan apa yang terjadi pada si pengemis?</p>
+      <label for="d3" class="sub">Dugaanmu:</label><textarea id="d3" placeholder="Menurutku..."></textarea></div></details>
+    <details><summary>Cinta itu cukup diucapkan?</summary><div>
+      <p class="q">Bagaimana caranya membuktikan bahwa kita benar-benar mencintai Rasulullah saw., padahal kita tidak pernah bertemu beliau?</p>
+      <label for="d4" class="sub">Dugaanmu:</label><textarea id="d4" placeholder="Menurutku..."></textarea></div></details>
+  </div>
+  <p class="sub" style="margin-top:14px">Simpan pertanyaanmu sendiri: apa yang paling ingin kamu ketahui tentang Rasulullah saw.?</p>
+  <textarea id="d5" aria-label="Pertanyaanku sendiri" placeholder="Aku ingin tahu..."></textarea>
+</section>
+
+<!-- 2 ASESMEN AWAL -->
+<section class="stage" data-i="1" hidden>
+  <h2>Asesmen Awal</h2>
+  <div class="goal">Ini bukan ujian. Kamu hanya mengukur seberapa jauh pemahamanmu hari ini. Jawab sesuai pengetahuanmu, tanpa melihat materi. Jawaban benar tidak ditampilkan dulu.</div>
+  <div id="awal"></div>
+</section>
+
+<!-- 3 MATERI POKOK -->
+<section class="stage" data-i="2" hidden>
+  <h2>Materi Pokok</h2>
+  <div class="goal">Pilih satu topik, baca sampai selesai, lalu tekan "Saya sudah paham". Semua topik perlu dibuka sebelum lanjut.</div>
+  <div class="topics" id="topics"></div>
+  <div id="topicBody"></div>
+  <div class="card ingat" id="ingat" hidden>
+    <b>⭐ Inti yang Harus Diingat</b>
+    <ul>
+      <li>Cinta Rasul dibuktikan dengan ittiba' (mengikuti sunnah), bukan sekadar pengakuan lisan.</li>
+      <li>Sifat wajib rasul: Siddiq, Amanah, Tablig, Fatanah (S-A-T-F). Sifat mustahil: Kizib, Khianat, Kitman, Baladah.</li>
+      <li>Sholawat adalah doa dan penghormatan kepada Nabi, diperintahkan dalam QS Al-Ahzab/33: 56.</li>
+      <li>Amanah mencakup tiga hal: kepada Allah, sesama manusia, dan diri sendiri.</li>
+      <li>Jujur dan santun adalah akhlak inti yang menjadi daya tarik dakwah Rasulullah saw.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4 SIMULASI -->
+<section class="stage" data-i="3" hidden>
+  <h2>Simulasi: Kamu yang Memilih</h2>
+  <div class="goal">Tiga situasi di sekitar Baturube. Pilih tindakanmu, lalu lihat apa akibatnya dan sifat Rasulullah saw. yang terkait.</div>
+  <div id="sim"></div>
+</section>
+
+<!-- 5 KUIS -->
+<section class="stage" data-i="4" hidden>
+  <h2>Kuis Penguatan</h2>
+  <div class="goal">Setiap jawaban langsung dibahas. Jika salah, kamu boleh mencoba pilihan lain sampai benar.</div>
+  <div class="progress"><i id="kprog"></i></div>
+  <div id="kuis"></div>
+</section>
+
+<!-- 6 ASESMEN AKHIR -->
+<section class="stage" data-i="5" hidden>
+  <h2>Asesmen Akhir</h2>
+  <div class="goal">Kerjakan sendiri tanpa melihat materi. Jawaban dikoreksi setelah semua soal selesai, lalu hasilnya dibandingkan dengan asesmen awalmu.</div>
+  <div id="akhir"></div>
+  <div id="hasil" hidden></div>
+</section>
+
+<!-- 7 REFLEKSI -->
+<section class="stage" data-i="6" hidden>
+  <h2>Refleksi</h2>
+  <div class="goal">Tiga langkah: menilai pemahamanmu, menuliskan perasaanmu, dan menyusun rencana perbaikan.</div>
+  <div class="card"><h3>1. Menilai pemahaman secara mandiri</h3>
+    <p class="sub">Beri nilai 1 (belum bisa) sampai 4 (sangat bisa).</p>
+    <div class="scale-l" style="margin-bottom:6px"><span>1 belum bisa</span><span>4 sangat bisa</span></div>
+    <div class="rate" id="rate"></div></div>
+  <div class="card"><h3>2. Mengekspresikan perasaan dan kesan</h3>
+    <label for="r1" class="sub">Bagaimana perasaanmu setelah belajar tentang cinta Rasul hari ini?</label>
+    <textarea id="r1"></textarea>
+    <label for="r2" class="sub" style="display:block;margin-top:10px">Bagian mana yang paling berkesan atau paling sulit?</label>
+    <textarea id="r2"></textarea></div>
+  <div class="card"><h3>3. Mengembangkan motivasi untuk perbaikan</h3>
+    <label for="r3" class="sub">Satu akhlak Rasulullah saw. yang akan kamu praktikkan minggu ini, dan bagaimana caranya?</label>
+    <textarea id="r3"></textarea>
+    <div class="mark"><button class="btn gold" id="copyRef">Salin refleksiku</button><span class="sub" id="copyMsg" aria-live="polite"></span></div></div>
+</section>
+
+<div class="pager"><button class="btn ghost" id="prev">← Sebelumnya</button><button class="btn" id="next">Lanjut →</button></div>
+</div>
+
+<script>
+const STAGES=["Apersepsi","Asesmen Awal","Materi Pokok","Simulasi","Kuis","Asesmen Akhir","Refleksi"];
+const done=new Set(), seenTopics=new Set();
+let cur=0, scoreAwal=null, scoreAkhir=null;
+const $=s=>document.querySelector(s);
+const el=(t,c,h)=>{const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e};
+
+/* ---------- navigasi ---------- */
+const nav=$("#nav");
+STAGES.forEach((n,i)=>{const b=el("button","",(i+1)+". "+n);b.onclick=()=>go(i);nav.appendChild(b)});
+function go(i){
+  cur=i;
+  document.querySelectorAll("section.stage").forEach(s=>s.hidden=+s.dataset.i!==i);
+  [...nav.children].forEach((b,k)=>{b.setAttribute("aria-current",k===i);b.classList.toggle("done",done.has(k))});
+  $("#prev").style.visibility=i?"visible":"hidden";
+  $("#next").style.display=i<STAGES.length-1?"":"none";
+  gate();
+  nav.children[i].scrollIntoView({inline:"center",block:"nearest"});
+  window.scrollTo({top:0});
+}
+function gate(){
+  const need={1:()=>done.has(1),2:()=>done.has(2),4:()=>done.has(4),5:()=>done.has(5)};
+  $("#next").disabled=need[cur]?!need[cur]():false;
+}
+$("#prev").onclick=()=>go(cur-1);
+$("#next").onclick=()=>{done.add(cur);go(cur+1)};
+
+/* ---------- mesin soal ---------- */
+function shuffle(a){return a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1])}
+const L="ABCD";
+function buildQuiz(root,items,mode,onFinish){
+  // mode: "none" (tanpa kunci), "retry" (umpan balik, boleh coba lagi), "batch" (dikoreksi di akhir)
+  const ans={};
+  items.forEach((q,qi)=>{
+    const c=el("div","card qcard");
+    c.innerHTML=`<div class="qnum">Soal ${qi+1} dari ${items.length}</div><div class="qtext">${q.q}</div>`;
+    const o=el("div","opts");const fb=el("div","fb hide");
+    q.o.forEach((t,oi)=>{
+      const b=el("button","opt",`<span class="k">${L[oi]}</span><span>${t}</span>`);
+      b.onclick=()=>{
+        if(mode==="retry"){
+          if(ans[qi]===q.a)return;
+          if(oi===q.a){b.classList.add("right");ans[qi]=q.a;fb.className="fb ok";fb.innerHTML="<b>Tepat.</b> "+q.e;fb.classList.remove("hide");
+            if(Object.keys(ans).length===items.length)onFinish&&onFinish();progress()}
+          else{b.classList.add("wrong");b.disabled=true;fb.className="fb no";fb.innerHTML="<b>Belum tepat.</b> Coba pilihan lain. Petunjuk: "+q.h;fb.classList.remove("hide")}
+        }else{
+          ans[qi]=oi;[...o.children].forEach(x=>x.classList.remove("sel"));b.classList.add("sel");
+          if(Object.keys(ans).length===items.length)fin.disabled=false;
+        }
+      };
+      o.appendChild(b);
+    });
+    c.append(o,fb);root.appendChild(c);
+  });
+  function progress(){const n=Object.values(ans).length;$("#kprog").style.width=(n/items.length*100)+"%"}
+  const fin=el("button","btn gold","Selesai dan lihat hasil");fin.disabled=true;
+  if(mode!=="retry"){root.appendChild(fin);fin.onclick=()=>{
+    let s=0;items.forEach((q,i)=>{if(ans[i]===q.a)s++});
+    fin.disabled=true;
+    [...root.querySelectorAll(".qcard")].forEach((c,i)=>{
+      [...c.querySelectorAll(".opt")].forEach(b=>b.disabled=true);
+      if(mode==="batch"){
+        const q=items[i],bs=c.querySelectorAll(".opt");bs[q.a].classList.add("right");
+        if(ans[i]!==q.a)bs[ans[i]].classList.add("wrong");
+        const f=c.querySelector(".fb");f.className="fb "+(ans[i]===q.a?"ok":"no");f.innerHTML=(ans[i]===q.a?"<b>Benar.</b> ":"<b>Kurang tepat.</b> ")+q.e;
+      }
+    });
+    onFinish(s,items.length);
+  }}
+}
+
+/* ---------- bank soal (dari Rangkuman Bab 3) ---------- */
+const AWAL=[
+ {q:"Cinta Rasul (mahabbah ar-rasul) paling tepat dibuktikan dengan...",o:["Mengagumi sejarah hidup Nabi saja","Mengikuti sunnah dan meneladani akhlak beliau","Menyebut nama Nabi dengan lantang","Mengoleksi buku tentang Nabi"],a:1},
+ {q:"Empat sifat wajib bagi rasul adalah...",o:["Siddiq, Amanah, Tablig, Fatanah","Siddiq, Sabar, Tawadu, Fatanah","Amanah, Zuhud, Tablig, Qanaah","Siddiq, Amanah, Syukur, Kitman"],a:0},
+ {q:"Perintah bersholawat kepada Nabi terdapat dalam...",o:["QS Al-Kafirun","QS Al-Ahzab/33: 56","QS Al-Ikhlas","QS Al-Baqarah/2: 256"],a:1},
+ {q:"Gelar \"al-Amin\" bermakna...",o:["Yang pemberani","Yang terpercaya","Yang kaya raya","Yang paling pandai"],a:1},
+ {q:"Contoh amanah kepada diri sendiri adalah...",o:["Menjalankan salat lima waktu","Mengembalikan barang pinjaman","Menjaga kesehatan dan memanfaatkan waktu belajar","Menjadi ketua kelas"],a:2}
+];
+const KUIS=[
+ {q:"Menurut QS Ali 'Imran/3: 31, bukti cinta kepada Allah adalah...",o:["Memperbanyak harta","Mengikuti Rasulullah saw.","Menghafal banyak ayat","Berpuasa setiap hari"],a:1,e:"Ayat ini menegaskan: \"Jika kamu mencintai Allah, ikutilah aku.\" Cinta harus dibuktikan dengan ittiba', bukan pengakuan lisan.",h:"Lihat kata kerja perintah dalam ayat: fattabi'uni."},
+ {q:"Pasangan sifat wajib dan sifat mustahil rasul yang BENAR adalah...",o:["Siddiq lawannya Khianat","Tablig lawannya Kitman","Fatanah lawannya Kizib","Amanah lawannya Baladah"],a:1,e:"Siddiq lawannya Kizib, Amanah lawannya Khianat, Tablig lawannya Kitman, Fatanah lawannya Baladah.",h:"Tablig berarti menyampaikan. Lawannya menyembunyikan."},
+ {q:"Dalam peristiwa renovasi Ka'bah, Muhammad muda menjadi penengah peletakan Hajar Aswad karena dikenal...",o:["Paling kuat","Paling kaya","Jujur dan amanah","Paling tua"],a:2,e:"Para pemimpin kabilah berkata \"raḍīnā bi al-Amīn\" (kami rida dengan keputusan al-Amin). Kepercayaan itu hasil kejujuran dan amanah.",h:"Ingat gelar yang disematkan kepada beliau."},
+ {q:"Sholawat Ibrahimiyah dibaca pada...",o:["Takbiratul ihram","Sujud pertama","Tasyahud akhir","Salam"],a:2,e:"Sholawat Ibrahimiyah dibaca pada tasyahud akhir dalam salat.",h:"Bagian salat sebelum salam."},
+ {q:"Mengembalikan barang pinjaman termasuk amanah kepada...",o:["Allah Swt.","Sesama manusia","Diri sendiri","Malaikat"],a:1,e:"Amanah kepada sesama manusia: mengembalikan barang pinjaman, menjalankan tugas sebagai ketua kelas.",h:"Barang itu milik orang lain."},
+ {q:"Sikap Nabi saat Fathu Makkah kepada penduduk Makkah yang dahulu memusuhinya adalah...",o:["Membalas dendam","Mengusir mereka","Memaafkan: \"Pergilah, kalian semua bebas!\"","Mengabaikan mereka"],a:2,e:"Nabi memaafkan mereka. Akhlak mulia beliau tidak pandang bulu, bahkan kepada yang memusuhinya.",h:"Pikirkan akhlak pemaaf."},
+ {q:"Di era digital, meneladani sifat Siddiq dan Tablig yang paling tepat adalah...",o:["Meneruskan semua pesan agar cepat tersebar","Memeriksa kebenaran informasi dan tidak menyebar hoaks","Membalas komentar berbeda pendapat dengan keras","Menyembunyikan informasi penting"],a:1,e:"Jujur menyampaikan informasi dan tidak menyebar hoaks adalah wujud nyata siddiq. Tetap santun saat berbeda pendapat adalah wujud akhlak Nabi.",h:"Jujur berarti benar, bukan sekadar cepat."}
+];
+const AKHIR=[
+ {q:"Pengertian Cinta Rasul (mahabbah ar-rasul) yang paling lengkap adalah...",o:["Mengagumi sosok Nabi secara historis","Kecintaan yang lahir dari iman dan mendorong meneladani ajaran serta akhlak Nabi","Sering mengucapkan nama Nabi","Mengikuti peringatan hari besar saja"],a:1,e:"Cinta Rasul lahir dari keimanan, berupa rindu, hormat, dan taat yang mendorong meneladani seluruh ajaran dan akhlak Nabi."},
+ {q:"Berikut ini yang BUKAN tanda cinta kepada Rasulullah saw. adalah...",o:["Memperbanyak sholawat","Mempelajari sirah Nabi","Mencintai ahlul bait dan sahabat","Mengaku cinta tetapi meninggalkan sunnah"],a:3,e:"Tanda cinta Rasul: ittiba' as-sunnah, sholawat, mencintai ahlul bait dan sahabat, mempelajari sirah, dan rindu bertemu beliau."},
+ {q:"Sifat Nabi yang membuat Khadijah r.a. mempercayakan barang dagangannya adalah...",o:["Kejujuran dalam berdagang","Kekayaan","Keturunan","Kekuatan fisik"],a:0,e:"Kejujuran dalam berdagang membuat Khadijah r.a. percaya, hingga akhirnya melamar Nabi untuk menikah."},
+ {q:"Sifat jaiz bagi rasul adalah...",o:["Berdusta untuk kebaikan","Makan, minum, sakit, dan menikah","Menyembunyikan wahyu","Berkhianat"],a:1,e:"Sifat jaiz adalah perilaku manusiawi biasa seperti makan, minum, sakit, dan menikah."},
+ {q:"Seorang murid ditunjuk sebagai ketua kelas dan menjalankan tugasnya dengan penuh tanggung jawab. Ini adalah amanah kepada...",o:["Allah Swt.","Sesama manusia","Diri sendiri","Hewan peliharaan"],a:1,e:"Menjalankan tugas sebagai ketua kelas termasuk amanah kepada sesama manusia."},
+ {q:"Pesan utama dari QS At-Taubah/9: 119 adalah...",o:["Perintah bersholawat","Bertakwa dan bersama orang-orang yang jujur","Menyampaikan amanat","Bersikap lemah lembut"],a:1,e:"Ayat ini memerintahkan bertakwa kepada Allah dan bersama orang-orang yang benar (jujur)."},
+ {q:"Kisah pengemis Yahudi buta mengajarkan bahwa akhlak mulia Rasulullah saw...",o:["Hanya untuk keluarga","Hanya untuk sesama Muslim","Tidak pandang bulu, bahkan kepada yang menghina","Hanya berlaku saat berdakwah"],a:2,e:"Nabi diam-diam menyuapinya setiap hari meski dihina. Abu Bakar r.a. melanjutkan kebiasaan itu hingga si pengemis masuk Islam."},
+ {q:"Contoh nyata amanah dan kejujuran yang disebut dalam materi adalah...",o:["Mujenih dan Egi Sandi mengembalikan uang Rp 500 juta yang ditemukan di KRL","Seorang pedagang menaikkan harga","Murid menyalin tugas teman","Seseorang menyimpan barang temuan"],a:0,e:"Mujenih dan Egi Sandi, petugas kebersihan KRL, mengembalikan uang Rp 500 juta kepada pemiliknya dan mendapat apresiasi."}
+];
+const SIM=[
+ {tag:"Di dermaga Baturube",scene:"Sepulang sekolah, kamu menemukan dompet berisi uang dan kartu pelajar di dekat dermaga. Tidak ada yang melihat.",
+  c:[["Mengambil uangnya, dompetnya dibuang","Khianat: mengambil hak orang lain. Kepercayaan hilang dan kamu mengkhianati amanah yang tidak sengaja jatuh ke tanganmu.","bad","Mustahil: Khianat"],
+     ["Membawa dompet ke guru atau pemiliknya berdasarkan kartu pelajar","Amanah: mengembalikan barang kepada yang berhak, seperti Mujenih dan Egi Sandi. Kepercayaan orang lain tumbuh.","good","Wajib: Amanah"],
+     ["Membiarkannya saja","Kamu tidak mengambil, tetapi amanah belum dijalankan. Barang itu bisa hilang, dan pemiliknya tetap kesulitan.","mid","Amanah belum terlaksana"]]},
+ {tag:"Di grup WhatsApp kelas",scene:"Seorang teman membagikan pesan berantai: \"Besok sekolah diliburkan karena cuaca buruk.\" Kamu belum tahu kebenarannya.",
+  c:[["Meneruskan ke semua grup supaya teman-teman tahu","Meski niatnya baik, menyebar kabar yang belum jelas bisa menjadi hoaks dan menyesatkan banyak orang. Ini jauh dari sifat siddiq.","bad","Mustahil: Kizib"],
+     ["Bertanya kepada wali kelas atau memeriksa pengumuman resmi sebelum menyebarkan","Siddiq dan Fatanah: kamu menyampaikan informasi yang benar dan cerdas menyelesaikan persoalan.","good","Wajib: Siddiq dan Fatanah"],
+     ["Menghapus pesan lalu pura-pura tidak tahu","Kamu tidak menyebarkan hoaks, tetapi teman lain tetap bisa tertipu. Meluruskan dengan santun akan lebih baik.","mid","Tablig belum terlaksana"]]},
+ {tag:"Saat ujian di kelas",scene:"Temanmu berbisik meminta jawaban saat ujian PAI. Pengawas sedang menoleh ke arah lain.",
+  c:[["Memberikan jawaban supaya temanmu senang","Itu membantu ketidakjujuran dan merusak amanah belajar kalian berdua.","bad","Mustahil: Kizib"],
+     ["Menolak dengan santun, lalu menawarkan belajar bersama setelah ujian","Siddiq dan santun: tegas menjaga kejujuran tanpa menyakiti hati. Ini meneladani akhlak lembut Rasulullah saw.","good","Wajib: Siddiq"],
+     ["Marah dan membentaknya di depan teman-teman","Kamu jujur, tetapi caranya kurang santun. Allah menggambarkan Nabi lembut hati (QS Ali 'Imran/3: 159). Kejujuran lebih berpengaruh bila disampaikan dengan santun.","mid","Santun belum terlaksana"]]}
+];
+const RATE=["Menjelaskan arti cinta Rasul dan tanda-tandanya","Menyebutkan sifat wajib dan mustahil rasul beserta artinya","Menjelaskan tiga cakupan amanah dan contohnya","Meneladani akhlak jujur dan santun di rumah, sekolah, dan media sosial"];
+
+/* ---------- materi ---------- */
+const TOP=[
+ {t:"Dalil",n:"Ayat dan hadis",h:()=>{
+  const d=[
+   ["QS Ali 'Imran/3: 31 (ittiba')","قُلْ إِن كُنتُمْ تُحِبُّونَ اللَّهَ فَاتَّبِعُونِي يُحْبِبْكُمُ اللَّهُ وَيَغْفِرْ لَكُمْ ذُنُوبَكُمْ ۗ وَاللَّهُ غَفُورٌ رَّحِيمٌ","Qul in kuntum tuhibbunallaha fattabi'uni yuhbibkumullahu wa yagfir lakum dzunubakum, wallahu gafurur rahim.","Katakanlah (Muhammad), \"Jika kamu mencintai Allah, ikutilah aku, niscaya Allah mencintaimu dan mengampuni dosa-dosamu.\" Allah Maha Pengampun, Maha Penyayang.","Cinta kepada Allah harus dibuktikan dengan mengikuti Rasulullah saw., bukan sekadar pengakuan lisan."],
+   ["QS Al-Ahzab/33: 56 (sholawat)","إِنَّ اللَّهَ وَمَلَائِكَتَهُ يُصَلُّونَ عَلَى النَّبِيِّ ۚ يَا أَيُّهَا الَّذِينَ آمَنُوا صَلُّوا عَلَيْهِ وَسَلِّمُوا تَسْلِيمًا","Innallaha wa mala'ikatahu yushalluna 'alan nabiyy, ya ayyuhal ladzina amanu shallu 'alaihi wa sallimu taslima.","Sesungguhnya Allah dan para malaikat-Nya bersholawat untuk Nabi. Wahai orang-orang yang beriman, bersholawatlah kamu untuk Nabi dan ucapkanlah salam dengan penuh penghormatan kepadanya.","Orang beriman diperintahkan bersholawat sebagaimana Allah dan malaikat bersholawat kepada Nabi."],
+   ["QS An-Nisa'/4: 58 (amanah)","إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا وَإِذَا حَكَمْتُم بَيْنَ النَّاسِ أَن تَحْكُمُوا بِالْعَدْلِ","Innallaha ya'murukum an tu'addul amanati ila ahliha, wa idza hakamtum bainan nasi an tahkumu bil 'adl.","Sungguh, Allah menyuruhmu menyampaikan amanat kepada yang berhak menerimanya, dan apabila kamu menetapkan hukum di antara manusia hendaknya kamu menetapkannya dengan adil.","Amanah harus disampaikan kepada yang berhak."],
+   ["QS At-Taubah/9: 119 (jujur)","يَا أَيُّهَا الَّذِينَ آمَنُوا اتَّقُوا اللَّهَ وَكُونُوا مَعَ الصَّادِقِينَ","Ya ayyuhal ladzina amanuttaqullaha wa kunu ma'ash shadiqin.","Wahai orang-orang yang beriman! Bertakwalah kepada Allah, dan bersamalah kamu dengan orang-orang yang benar.","Berteman dan bergaul dengan orang-orang yang jujur."],
+   ["QS Ali 'Imran/3: 159 (santun)","فَبِمَا رَحْمَةٍ مِّنَ اللَّهِ لِنتَ لَهُمْ ۖ وَلَوْ كُنتَ فَظًّا غَلِيظَ الْقَلْبِ لَانفَضُّوا مِنْ حَوْلِكَ","Fabima rahmatin minallahi linta lahum, walau kunta fazhzhan ghalizhal qalbi lanfadhdhu min haulik.","Maka berkat rahmat Allah engkau (Muhammad) berlaku lemah lembut terhadap mereka. Sekiranya engkau bersikap keras dan berhati kasar, tentulah mereka menjauhkan diri dari sekitarmu.","Kelembutan Nabi menjadi daya tarik dakwah."]
+  ];
+  return `<p class="sub">Ketuk judul untuk membuka tiap dalil.</p>`+d.map(x=>`<details class="dalil"><summary>${x[0]}</summary><div class="in"><p class="ar" lang="ar">${x[1]}</p><p class="lat">${x[2]}</p><p class="arti"><b>Artinya:</b> "${x[3].replace(/"/g,"")}"</p><p><b>Pesan:</b> ${x[4]}</p></div></details>`).join("")+
+  `<div class="card"><b>Hadis</b> (HR. Bukhari, Muslim, At-Tirmidzi, dari Abdullah bin Mas'ud r.a.)<p style="margin:6px 0 0">"Sesungguhnya kejujuran itu akan membimbing kepada kebaikan, dan kebaikan itu akan membimbing ke surga."</p></div>`}},
+ {t:"a",n:"Tanda cinta kepada Rasul",h:()=>{
+  const tanda=[["Mengikuti sunnah","Ittiba' as-sunnah: menjadikan sunnah sebagai pedoman hidup."],["Memperbanyak sholawat","Membaca sholawat sebagai doa dan penghormatan."],["Mencintai ahlul bait dan sahabat","Mencintai keluarga dan para sahabat Nabi."],["Mempelajari sirah","Mempelajari sejarah hidup Nabi dengan sungguh-sungguh."],["Rindu bertemu Rasulullah saw.","Merasa rindu bertemu beliau kelak di akhirat."]];
+  return `<p>Cinta Rasul (mahabbah ar-rasul) lahir dari keimanan. Nabi bersabda bahwa iman belum sempurna sebelum kita mencintai beliau melebihi diri sendiri, orang tua, anak, dan seluruh manusia.</p><p class="sub">Pilih satu tanda untuk melihat penjelasannya:</p><div class="pick" data-pick>${tanda.map((x,i)=>`<button data-t="${x[1]}" aria-pressed="false">${i+1}. ${x[0]}</button>`).join("")}</div><div class="pop hide" id="pop"></div>`}},
+ {t:"b",n:"Empat sifat wajib rasul",h:()=>{
+  const s=[["Siddiq","Selalu berkata benar","Kizib","dusta"],["Amanah","Dapat dipercaya","Khianat",""],["Tablig","Menyampaikan wahyu secara utuh","Kitman","menyembunyikan"],["Fatanah","Cerdas menyelesaikan persoalan umat","Baladah","bodoh"]];
+  return `<p>Sifat wajib dihafal dengan singkatan <b>S-A-T-F</b>. Setiap sifat wajib punya lawan, yaitu sifat mustahil.</p><div class="satf" role="img" aria-label="Diagram sifat wajib dan mustahil rasul">${s.map(x=>`<div class="c"><div class="w"><b>${x[0]}</b><span>${x[1]}</span></div><div class="arrow">↕ lawan</div><div class="m"><b>${x[2]}</b>${x[3]}</div></div>`).join("")}</div>
+  <p>Selain itu rasul memiliki <b>sifat jaiz</b>: perilaku manusiawi biasa seperti makan, minum, sakit, dan menikah.</p>
+  <div class="card"><h3>Kisah gelar al-Amin</h3><p style="margin:0">Saat renovasi Ka'bah, Muhammad saw. (sebelum diangkat menjadi nabi) menjadi penengah peletakan Hajar Aswad karena dikenal jujur dan amanah. Para pemimpin kabilah berkata <i>"raḍīnā bi al-Amīn"</i> (kami rida dengan keputusan al-Amin).</p></div>`}},
+ {t:"c",n:"Sholawat",h:()=>`<p>Sholawat adalah doa dan penghormatan kepada Nabi Muhammad saw. dan wujud cinta kepada beliau. Perintahnya ada dalam QS Al-Ahzab/33: 56.</p>
+  <div class="card"><h3>Sholawat Ibrahimiyah</h3><p class="sub" style="margin-bottom:4px">Dibaca pada tasyahud akhir</p>
+  <p class="ar" lang="ar">اَللّٰهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</p>
+  <p class="lat">Allahumma shalli 'ala Muhammad wa 'ala ali Muhammad, kama shallaita 'ala Ibrahima wa 'ala ali Ibrahim, innaka Hamidun Majid.</p>
+  <p class="arti" style="margin:0"><b>Artinya:</b> "Ya Allah, limpahkanlah rahmat kepada Nabi Muhammad dan keluarganya, sebagaimana Engkau telah melimpahkan rahmat kepada Nabi Ibrahim dan keluarganya. Sesungguhnya Engkau Maha Terpuji lagi Maha Mulia."</p></div>
+  <p>Ragam sholawat lain yang berkembang di Nusantara: <b>Sholawat Nariyah</b>, <b>Sholawat Badar</b>, dan <b>Sholawat Thibbil Qulub</b>.</p>`},
+ {t:"d",n:"Kisah keteladanan akhlak",h:()=>{
+  const k=[["Jujur dalam berdagang","Kejujuran dalam berdagang membuat Khadijah r.a. mempercayakan barang dagangannya, hingga akhirnya melamar Nabi untuk menikah."],["Pemaaf saat Fathu Makkah","Nabi berkata \"Pergilah, kalian semua bebas!\" kepada penduduk Makkah yang dahulu memusuhinya."],["Lembut dalam keluarga","Bercanda dengan cucu, memuliakan istri, dan selalu meminta pendapat sebelum keputusan penting."],["Pengemis Yahudi buta","Nabi diam-diam menyuapinya setiap hari meski selalu dihina. Setelah Nabi wafat, Abu Bakar r.a. melanjutkan kebiasaan itu hingga pengemis tersebut akhirnya masuk Islam."]];
+  return `<p class="sub">Pilih satu kisah:</p><div class="pick" data-pick>${k.map(x=>`<button data-t="${x[1]}" aria-pressed="false">${x[0]}</button>`).join("")}</div><div class="pop hide" id="pop"></div><p style="margin-top:12px"><b>Hikmah:</b> Kepercayaan (seperti gelar al-Amin) tidak datang instan, melainkan hasil kejujuran dan amanah yang dipupuk terus-menerus. Akhlak mulia Rasulullah saw. tidak pandang bulu, bahkan kepada orang yang memusuhinya.</p>`}},
+ {t:"e",n:"Amanah dan penerapannya",h:()=>`<p>Amanah adalah tanggung jawab menjaga kepercayaan yang diberikan. Cakupannya ada tiga:</p>
+  <div class="tri"><div><b>Kepada Allah Swt.</b><small>Menjalankan salat lima waktu, belajar dengan niat ibadah</small></div><div><b>Kepada sesama manusia</b><small>Mengembalikan barang pinjaman, menjalankan tugas sebagai ketua kelas</small></div><div><b>Kepada diri sendiri</b><small>Menjaga kesehatan, memanfaatkan waktu belajar sebaik-baiknya</small></div></div>
+  <div class="card"><h3>Contoh nyata</h3><p style="margin:0">Mujenih dan Egi Sandi, petugas kebersihan KRL, mengembalikan uang Rp 500 juta yang ditemukan di kereta kepada pemiliknya, dan atas kejujuran itu keduanya mendapat apresiasi.</p></div>
+  <p class="sub">Pilih tempatnya untuk melihat contoh penerapan:</p><div class="pick" data-pick>
+  <button data-t="Menjaga amanah orang tua seperti merawat barang pribadi, jujur menyampaikan hasil belajar." aria-pressed="false">Di rumah</button>
+  <button data-t="Menjalankan amanah sebagai ketua kelas atau OSIS dengan tanggung jawab, tidak mencontek saat ujian." aria-pressed="false">Di sekolah</button>
+  <button data-t="Mengembalikan barang temuan kepada pemiliknya, bertutur santun kepada tetangga." aria-pressed="false">Di masyarakat</button>
+  <button data-t="Jujur menyampaikan informasi, tidak menyebar hoaks, tetap santun meski berbeda pendapat di media sosial." aria-pressed="false">Era digital</button></div><div class="pop hide" id="pop"></div>`}
+];
+const tb=$("#topics"),body=$("#topicBody");
+TOP.forEach((x,i)=>{
+  const b=el("button","",`<span class="t">${x.t.length>1?"Dalil":"Bagian "+x.t.toUpperCase()}</span>${x.n}`);b.setAttribute("aria-pressed","false");
+  b.onclick=()=>openTopic(i);tb.appendChild(b);
+});
+function openTopic(i){
+  [...tb.children].forEach((b,k)=>b.setAttribute("aria-pressed",k===i));
+  body.innerHTML="";
+  const c=el("div","card");c.innerHTML=`<h3>${TOP[i].n}</h3>`+TOP[i].h();body.appendChild(c);
+  c.querySelectorAll("[data-pick]").forEach(g=>{
+    const pop=c.querySelector("#pop");
+    g.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+      g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));
+      b.setAttribute("aria-pressed","true");pop.textContent=b.dataset.t;pop.classList.remove("hide");
+    });
+  });
+  const m=el("div","mark");const ok=el("button","btn gold",seenTopics.has(i)?"✓ Sudah paham":"Saya sudah paham");
+  ok.onclick=()=>{seenTopics.add(i);tb.children[i].classList.add("seen");ok.textContent="✓ Sudah paham";checkMateri()};
+  m.appendChild(ok);c.appendChild(m);
+}
+function checkMateri(){
+  if(seenTopics.size===TOP.length){done.add(2);$("#ingat").hidden=false;gate();[...nav.children][2].classList.add("done")}
+}
+openTopic(0);
+
+/* ---------- simulasi ---------- */
+(function(){
+  const r=$("#sim");
+  SIM.forEach((s,i)=>{
+    const c=el("div","card sim");c.innerHTML=`<span class="tag">Situasi ${i+1} · ${s.tag}</span><p class="scene">${s.scene}</p><p class="sub" style="margin-bottom:8px">Apa yang kamu lakukan?</p>`;
+    const o=el("div","opts");const fb=el("div","fb hide");
+    s.c.forEach(ch=>{
+      const b=el("button","opt",`<span>${ch[0]}</span>`);
+      b.onclick=()=>{
+        [...o.children].forEach(x=>x.classList.remove("sel","right","wrong"));
+        b.classList.add(ch[2]==="good"?"right":ch[2]==="bad"?"wrong":"sel");
+        fb.className="fb "+(ch[2]==="good"?"ok":ch[2]==="bad"?"no":"info");
+        fb.innerHTML=`<b>${ch[3]}.</b> ${ch[1]}`;
+      };
+      o.appendChild(b);
+    });
+    c.append(o,fb);r.appendChild(c);
+  });
+})();
+
+/* ---------- soal ---------- */
+function shuffled(items){return items.map(q=>{const idx=shuffle(q.o.map((_,i)=>i));return{...q,o:idx.map(i=>q.o[i]),a:idx.indexOf(q.a)}})}
+buildQuiz($("#awal"),shuffled(AWAL),"none",(s,n)=>{
+  scoreAwal=Math.round(s/n*100);
+  $("#awal").appendChild(el("div","fb info",`<b>Titik awalmu tercatat.</b> Jawaban benar belum ditampilkan. Pelajari materi untuk melihat seberapa besar kemajuanmu nanti.`));
+  done.add(1);gate();[...nav.children][1].classList.add("done");
+});
+buildQuiz($("#kuis"),shuffled(KUIS),"retry",()=>{done.add(4);gate();[...nav.children][4].classList.add("done")});
+buildQuiz($("#akhir"),shuffled(AKHIR),"batch",(s,n)=>{
+  scoreAkhir=Math.round(s/n*100);done.add(5);[...nav.children][5].classList.add("done");
+  const h=$("#hasil");h.hidden=false;
+  const aw=scoreAwal==null?null:scoreAwal;
+  const sel=scoreAkhir>=80?"Pemahamanmu sudah kuat. Lanjutkan dengan menerapkannya di rumah, sekolah, dan media sosial.":scoreAkhir>=60?"Pemahamanmu sudah baik. Ulangi bagian materi yang jawabannya masih keliru.":"Buka kembali tahap Materi Pokok dan Kuis, lalu coba lagi. Belajar bertahap itu wajar.";
+  h.innerHTML=`<div class="card"><div class="kicker">Hasil asesmen akhir</div><div class="score">${s} / ${n}</div><p style="margin-top:8px">${sel}</p>
+   <div class="bars" role="img" aria-label="Perbandingan nilai asesmen awal dan akhir">
+    <div class="bar a"><span>Asesmen awal</span><div class="tr"><i style="width:${aw??0}%"></i></div><b>${aw==null?"-":aw}</b></div>
+    <div class="bar z"><span>Asesmen akhir</span><div class="tr"><i style="width:${scoreAkhir}%"></i></div><b>${scoreAkhir}</b></div></div>
+   ${aw!=null?`<p class="sub" style="margin:0">${scoreAkhir>aw?"Nilaimu naik "+(scoreAkhir-aw)+" poin dari asesmen awal.":scoreAkhir===aw?"Nilaimu sama dengan asesmen awal.":"Nilaimu turun dari asesmen awal. Baca ulang penjelasan tiap soal di atas."}</p>`:""}</div>`;
+  h.scrollIntoView({behavior:"smooth",block:"start"});gate();
+});
+
+/* ---------- refleksi ---------- */
+const rt={};
+RATE.forEach((t,i)=>{
+  const r=el("div","row");r.innerHTML=`<div>${t}</div>`;const sc=el("div","sc");
+  [1,2,3,4].forEach(v=>{const b=el("button","",v);b.setAttribute("aria-pressed","false");b.setAttribute("aria-label",`Nilai ${v}`);
+    b.onclick=()=>{rt[i]=v;[...sc.children].forEach(x=>x.setAttribute("aria-pressed","false"));b.setAttribute("aria-pressed","true")};sc.appendChild(b)});
+  r.appendChild(sc);$("#rate").appendChild(r);
+});
+$("#copyRef").onclick=async()=>{
+  const t=["REFLEKSI CINTA RASUL","", ...RATE.map((x,i)=>`${x}: ${rt[i]||"-"}/4`),"",
+   "Perasaan: "+$("#r1").value,"Paling berkesan/sulit: "+$("#r2").value,"Akhlak yang akan dipraktikkan: "+$("#r3").value,
+   "","Nilai awal: "+(scoreAwal??"-")+" | Nilai akhir: "+(scoreAkhir??"-")].join("\n");
+  try{await navigator.clipboard.writeText(t);$("#copyMsg").textContent="Tersalin. Tempel ke buku catatan atau kirim ke gurumu."}
+  catch(e){$("#copyMsg").textContent="Gagal menyalin otomatis. Salin tulisanmu secara manual."}
+};
+go(0);
+</script>
+
+</body></html>
